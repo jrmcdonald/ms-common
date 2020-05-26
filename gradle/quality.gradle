@@ -36,7 +36,7 @@ check.dependsOn codeCoverageReport
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "jrmcdonald_ms-customer-entity"
+        property "sonar.projectKey", "jrmcdonald_ms-common"
         property "sonar.organization", "jrmcdonald"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
