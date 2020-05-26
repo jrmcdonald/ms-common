@@ -13,33 +13,22 @@ jacoco {
     toolVersion = "${jacocoToolVersion}"
 }
 
-tasks.register("codeCoverageReport", JacocoReport) {
-    subprojects { subproject ->
-        subproject.plugins.withType(JacocoPlugin).configureEach {
-            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).configureEach { testTask ->
-                sourceSets subproject.sourceSets.main
-                executionData(testTask)
-            }
-            subproject.tasks.matching({ t -> t.extensions.findByType(JacocoTaskExtension) }).forEach {
-                rootProject.tasks.codeCoverageReport.dependsOn(it)
-            }
-        }
-    }
-
+jacocoTestReport {
     reports {
-        xml.enabled true
-        html.enabled true
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
     }
 }
-test.finalizedBy codeCoverageReport
-check.dependsOn codeCoverageReport
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestReport
 
 sonarqube {
     properties {
         property "sonar.projectKey", "jrmcdonald_ms-common"
         property "sonar.organization", "jrmcdonald"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
     }
 }
-tasks.sonarqube.mustRunAfter codeCoverageReport
+tasks.sonarqube.mustRunAfter jacocoTestReport
