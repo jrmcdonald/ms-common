@@ -3,6 +3,9 @@ name: build
 on:
   schedule:
     - cron: '0 4 * * 1'
+  push:
+    branches:
+      - 'master'
   pull_request:
     branches:
       - '*'
