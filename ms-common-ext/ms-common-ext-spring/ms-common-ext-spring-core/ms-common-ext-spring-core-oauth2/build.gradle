@@ -1,0 +1,13 @@
+plugins {
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"

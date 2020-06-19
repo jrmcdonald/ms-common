@@ -1,0 +1,23 @@
+plugins {
+    id 'jacoco'
+    id 'java-test-fixtures'
+    id 'maven-publish'
+}
+
+dependencies {
+    testImplementation 'org.force66:BeanTester'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.testcontainers:testcontainers'
+
+    testFixturesImplementation 'org.projectlombok:lombok'
+    testFixturesImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testFixturesImplementation 'org.testcontainers:postgresql'
+    testFixturesImplementation 'org.testcontainers:testcontainers'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"

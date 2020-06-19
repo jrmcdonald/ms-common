@@ -1,0 +1,51 @@
+plugins {
+    id 'java-platform'
+    id 'maven-publish'
+}
+
+dependencies {
+    constraints {
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core:ms-common-ext-spring-core-oauth2')
+
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-datetime')
+
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web:ms-common-ext-spring-web-exception')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web:ms-common-ext-spring-web-interceptor')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web:ms-common-ext-spring-web-oauth2')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web:ms-common-ext-spring-web-security')
+
+        api project(':ms-common-schema-definition')
+        api project(':ms-common-test')
+
+        api "com.github.spotbugs:spotbugs-annotations:${spotbugsAnnotationsVersion}"
+        api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
+        api "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+        api "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
+        api "io.micrometer:micrometer-registry-prometheus:${micrometerPrometheusVersion}"
+        api "net.logstash.logback:logstash-logback-encoder:${logstashEncoderVersion}"
+        api "org.force66:BeanTester:${beanTesterVersion}"
+        api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        api "org.testcontainers:postgresql:${testcontainersVersion}"
+        api "org.testcontainers:testcontainers:${testcontainersVersion}"
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/jrmcdonald/ms-common")
+            credentials {
+                username = "jrmcdonald"
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from(components.javaPlatform)
+        }
+    }
+}
