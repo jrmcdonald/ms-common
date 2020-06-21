@@ -1,7 +1,8 @@
 package com.jrmcdonald.common.ext.spring.security.config;
 
-import com.jrmcdonald.common.ext.spring.web.security.SpringSecurityAuthenticationFacade;
-import com.jrmcdonald.common.ext.spring.web.security.config.SecurityConfiguration;
+import com.jrmcdonald.common.ext.spring.web.security.authentication.SpringSecurityAuthenticationFacade;
+import com.jrmcdonald.common.ext.spring.web.security.authentication.config.SecurityConfiguration;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;

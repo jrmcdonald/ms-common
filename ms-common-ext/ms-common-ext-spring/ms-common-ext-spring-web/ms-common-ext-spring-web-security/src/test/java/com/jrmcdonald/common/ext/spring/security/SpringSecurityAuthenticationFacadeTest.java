@@ -1,6 +1,7 @@
 package com.jrmcdonald.common.ext.spring.security;
 
-import com.jrmcdonald.common.ext.spring.web.security.SpringSecurityAuthenticationFacade;
+import com.jrmcdonald.common.ext.spring.web.security.authentication.SpringSecurityAuthenticationFacade;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

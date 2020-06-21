@@ -2,7 +2,14 @@ rootProject.name = 'ms-common'
 
 include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core'
 include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core:ms-common-ext-spring-core-oauth2'
+
 include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-datetime'
+
+include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-context'
+include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-error'
+include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-filter'
+include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-oauth2'
+include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-security'
 
 include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web'
 include 'ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-web:ms-common-ext-spring-web-exception'

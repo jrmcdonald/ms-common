@@ -1,6 +1,5 @@
 package com.jrmcdonald.common.ext.spring.core.oauth2;
 
-import com.jrmcdonald.ext.spring.core.oauth2.JwtAudienceValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

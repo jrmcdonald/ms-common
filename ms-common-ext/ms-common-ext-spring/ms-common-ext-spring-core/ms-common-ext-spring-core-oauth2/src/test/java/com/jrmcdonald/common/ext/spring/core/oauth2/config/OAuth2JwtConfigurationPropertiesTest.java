@@ -1,6 +1,5 @@
 package com.jrmcdonald.common.ext.spring.core.oauth2.config;
 
-import com.jrmcdonald.ext.spring.core.oauth2.config.OAuth2JwtConfigurationProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.context.properties.bind.BindResult;
