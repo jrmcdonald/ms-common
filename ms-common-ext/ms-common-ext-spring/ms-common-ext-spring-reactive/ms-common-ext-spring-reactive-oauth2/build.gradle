@@ -1,0 +1,16 @@
+plugins {
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core:ms-common-ext-spring-core-oauth2')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+
+    testImplementation project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-datetime')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"

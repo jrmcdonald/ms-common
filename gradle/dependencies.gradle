@@ -1,4 +1,3 @@
-
 dependencyCheck {
     format = 'ALL'
     analyzers {

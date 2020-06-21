@@ -5,91 +5,69 @@ plugins {
     id 'org.owasp.dependencycheck' version "${dependencyCheckPluginVersion}"
     id 'org.sonarqube' version "${sonarqubePluginVersion}"
     id 'org.springframework.boot' version "${springBootPluginVersion}"
-    id 'io.spring.dependency-management' version "${springDependencyManagementPluginVersion}"
     id 'jacoco'
     id 'java'
-    id 'java-library'
-    id 'java-test-fixtures'
-    id 'maven-publish'
 }
 
-group = 'com.jrmcdonald'
-version = "${version}"
-sourceCompatibility = '11'
+allprojects {
+    group = 'com.jrmcdonald'
+    version = "${version}"
+    sourceCompatibility = '11'
 
-repositories {
-    mavenCentral()
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    implementation "com.github.spotbugs:spotbugs-annotations:${spotbugsVersion}"
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
-    implementation 'org.springframework.security:spring-security-config'
-
-    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonDatatypeVersion}"
-    testImplementation 'org.springframework.security:spring-security-test'
-    testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
-    testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
-
-    testFixturesImplementation 'org.projectlombok:lombok'
-    testFixturesImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testFixturesImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
-    testFixturesImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
-
-    testImplementation "org.force66:BeanTester:${beanTesterVersion}"
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-}
-
-compileJava {
-    options.compilerArgs << "-Werror"
-    options.compilerArgs << "-Xlint:all"
-    options.compilerArgs << "-Xlint:-try"
-    options.compilerArgs << "-Xlint:-processing"
-}
-
-bootJar {
-    enabled = false
-}
-
-jar {
-    enabled = true
-}
-
-test {
-    useJUnitPlatform()
-}
-
-publishing {
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/jrmcdonald/ms-common")
-            credentials {
-                username = "jrmcdonald"
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
+        mavenCentral()
     }
-    publications {
-        gpr(MavenPublication) {
-            from(components.java)
+
+    if (it.name != 'ms-common-bom') {
+        apply plugin: 'com.github.ben-manes.versions'
+        apply plugin: 'com.github.spotbugs'
+        apply plugin: 'org.owasp.dependencycheck'
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'java'
+        apply plugin: 'java-library'
+        apply plugin: 'java-test-fixtures'
+
+        configurations {
+            commonBom
+            compileOnly.extendsFrom(commonBom)
+            annotationProcessor.extendsFrom(commonBom)
+            testCompileOnly.extendsFrom(commonBom)
+            testAnnotationProcessor.extendsFrom(commonBom)
+            implementation.extendsFrom(commonBom)
+            testFixturesImplementation.extendsFrom(commonBom)
+        }
+
+        dependencies {
+            commonBom platform(project(':ms-common-bom'))
+
+            compileOnly 'org.projectlombok:lombok'
+            annotationProcessor 'org.projectlombok:lombok'
+
+            implementation 'com.github.spotbugs:spotbugs-annotations'
+        }
+
+        java {
+            withJavadocJar()
+            withSourcesJar()
+        }
+
+        compileJava {
+            options.compilerArgs << "-Werror"
+            options.compilerArgs << "-Xlint:all"
+            options.compilerArgs << "-Xlint:-try"
+            options.compilerArgs << "-Xlint:-processing"
+        }
+
+        bootJar {
+            enabled = false
+        }
+
+        jar {
+            enabled = true
+        }
+
+        test {
+            useJUnitPlatform()
         }
     }
 }

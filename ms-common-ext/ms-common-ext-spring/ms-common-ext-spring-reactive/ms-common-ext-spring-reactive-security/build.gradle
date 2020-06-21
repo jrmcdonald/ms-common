@@ -1,0 +1,16 @@
+plugins {
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"

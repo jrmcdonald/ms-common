@@ -1,0 +1,11 @@
+plugins {
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"
