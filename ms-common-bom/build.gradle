@@ -36,6 +36,7 @@ dependencies {
         api "net.logstash.logback:logstash-logback-encoder:${logstashEncoderVersion}"
         api "org.force66:BeanTester:${beanTesterVersion}"
         api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        api "org.testcontainers:junit-jupiter:${testcontainersVersion}"
         api "org.testcontainers:postgresql:${testcontainersVersion}"
         api "org.testcontainers:testcontainers:${testcontainersVersion}"
     }
