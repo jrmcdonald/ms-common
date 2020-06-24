@@ -122,7 +122,7 @@ class ReactiveRequestLoggingFilterTest {
         assertThat(serviceEntryEvent).isPresent();
         assertThat(serviceEntryEvent.get().getMDCPropertyMap()).containsAllEntriesOf(expectedMdcProperties);
         assertThat(serviceEntryEvent.get().getMDCPropertyMap()).containsKey(ReactorContextKeys.DURATION);
-        assertThat(serviceEntryEvent.get().getMDCPropertyMap().get(ReactorContextKeys.DURATION)).isEqualTo(String.valueOf(Duration.between(start, end).toMillis()));
+        assertThat(serviceEntryEvent.get().getMDCPropertyMap()).containsEntry(ReactorContextKeys.DURATION, String.valueOf(Duration.between(start, end).toMillis()));
     }
 
     @Test

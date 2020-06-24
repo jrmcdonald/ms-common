@@ -115,7 +115,7 @@ class ReactiveContextLifterTest {
             reactiveContextLifter.onNext(expectedObject);
 
             assertThat(MDC.getCopyOfContextMap().entrySet()).doesNotContainAnyElementsOf(contextMap.entrySet());
-            assertThat(MDC.getCopyOfContextMap().get("unrelated-key")).isEqualTo("unrelated-value");
+            assertThat(MDC.getCopyOfContextMap()).containsEntry("unrelated-key", "unrelated-value");
 
             verify(coreSubscriber).onNext(eq(expectedObject));
         }
