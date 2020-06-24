@@ -3,18 +3,17 @@ package com.jrmcdonald.common.ext.spring.reactive.context.lifter;
 import org.reactivestreams.Subscription;
 import org.slf4j.MDC;
 
+import lombok.RequiredArgsConstructor;
 import reactor.core.CoreSubscriber;
 import reactor.util.context.Context;
 
 import static com.jrmcdonald.common.ext.spring.reactive.context.model.ReactorContextKeys.CONTEXT_KEYS;
 
+// Based on https://github.com/archie-swif/webflux-mdc/blob/master/src/main/java/com/example/webfluxmdc/MdcContextLifter.java
+@RequiredArgsConstructor
 public class ReactiveContextLifter<T> implements CoreSubscriber<T> {
 
-    CoreSubscriber<T> coreSubscriber;
-
-    public ReactiveContextLifter(CoreSubscriber<T> coreSubscriber) {
-        this.coreSubscriber = coreSubscriber;
-    }
+    private final CoreSubscriber<T> coreSubscriber;
 
     @Override
     public void onSubscribe(Subscription subscription) {
