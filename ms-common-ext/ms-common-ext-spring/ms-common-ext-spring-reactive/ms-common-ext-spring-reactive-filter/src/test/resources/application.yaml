@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ms-common
+  main:
+    allow-bean-definition-overriding: true
+
+filter:
+  logging:
+    excluded-paths: /v1/logging/excluded

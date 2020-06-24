@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-datetime')
     implementation project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-reactive:ms-common-ext-spring-reactive-context')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
