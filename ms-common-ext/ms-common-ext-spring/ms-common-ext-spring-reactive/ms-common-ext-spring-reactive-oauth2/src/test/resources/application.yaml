@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ms-common
+  security:
+    oauth2:
+      client:
+        registration:
+          local:
+            authorization-grant-type: client_credentials
+            client-id: some-id
+            client-secret: some-secret
+            scope: some:scope
+        provider:
+          local:
+            token-uri: http://localhost:8082/oauth/token
+
+client:
+  credentials:
+    audience: test-audience
+    default-client-registration-id: local
