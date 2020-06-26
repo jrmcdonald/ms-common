@@ -11,6 +11,7 @@ dependencies {
     constraints {
         api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core')
         api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core:ms-common-ext-spring-core-oauth2')
+        api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-core:ms-common-ext-spring-core-openapi')
 
         api project(':ms-common-ext:ms-common-ext-spring:ms-common-ext-spring-datetime')
 
@@ -33,9 +34,13 @@ dependencies {
         api "com.squareup.okhttp3:okhttp:${okhttpVersion}"
         api "com.squareup.okhttp3:mockwebserver:${okhttpVersion}"
         api "io.micrometer:micrometer-registry-prometheus:${micrometerPrometheusVersion}"
+        api "io.swagger.core.v3:swagger-core:${swaggerVersion}"
         api "net.logstash.logback:logstash-logback-encoder:${logstashEncoderVersion}"
         api "org.force66:BeanTester:${beanTesterVersion}"
         api "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+        api "org.springdoc:springdoc-openapi-ui:${springdocVersion}"
+        api "org.springdoc:springdoc-openapi-security:${springdocVersion}"
+        api "org.springdoc:springdoc-openapi-webflux-ui:${springdocVersion}"
         api "org.testcontainers:junit-jupiter:${testcontainersVersion}"
         api "org.testcontainers:postgresql:${testcontainersVersion}"
         api "org.testcontainers:testcontainers:${testcontainersVersion}"
