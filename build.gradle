@@ -38,7 +38,7 @@ allprojects {
         }
 
         dependencies {
-            commonBom platform(project(':ms-common-bom'))
+            commonBom enforcedPlatform(project(':ms-common-bom'))
 
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'

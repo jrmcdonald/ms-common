@@ -1,0 +1,13 @@
+plugins {
+    id 'jacoco'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation 'io.swagger.core.v3:swagger-core'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+apply from: "${rootDir}/gradle/publishing.gradle"
