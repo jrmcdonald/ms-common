@@ -141,7 +141,7 @@ class OpenApiConfigurationPropertiesTest {
         Binder binder = new Binder(new ArrayList<>());
         OpenApiConfigurationProperties bound = binder.bindOrCreate("security.authorization-url", Bindable.of(OpenApiConfigurationProperties.class));
 
-        assertThat(bound.getSecurity().getAuthorizationUrl()).isEqualTo("");
+        assertThat(bound.getSecurity().getAuthorizationUrl()).isEmpty();
     }
 
     @Test
@@ -162,7 +162,7 @@ class OpenApiConfigurationPropertiesTest {
         Binder binder = new Binder(new ArrayList<>());
         OpenApiConfigurationProperties bound = binder.bindOrCreate("security.refresh-url", Bindable.of(OpenApiConfigurationProperties.class));
 
-        assertThat(bound.getSecurity().getAuthorizationUrl()).isEqualTo("");
+        assertThat(bound.getSecurity().getAuthorizationUrl()).isEmpty();
     }
 
     @Test
@@ -184,7 +184,7 @@ class OpenApiConfigurationPropertiesTest {
         Binder binder = new Binder(new ArrayList<>());
         OpenApiConfigurationProperties bound = binder.bindOrCreate("security.token-url", Bindable.of(OpenApiConfigurationProperties.class));
 
-        assertThat(bound.getSecurity().getAuthorizationUrl()).isEqualTo("");
+        assertThat(bound.getSecurity().getAuthorizationUrl()).isEmpty();
     }
 
     @Test
