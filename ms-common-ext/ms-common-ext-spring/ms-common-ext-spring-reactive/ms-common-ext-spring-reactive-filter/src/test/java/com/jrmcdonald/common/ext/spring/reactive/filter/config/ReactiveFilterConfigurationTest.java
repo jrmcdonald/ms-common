@@ -16,7 +16,7 @@ class ReactiveFilterConfigurationTest {
     private final ApplicationContextRunner runner = new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(ConfigurationPropertiesAutoConfiguration.class))
             .withUserConfiguration(DateTimeConfiguration.class, ReactiveFilterConfiguration.class)
-            .withPropertyValues("spring.application.name", "ms-common-ext-spring-reactive-filter");
+            .withPropertyValues("spring.application.name=ms-common-ext-spring-reactive-filter");
 
     @Test
     @DisplayName("Should create ReactiveRequestLoggingFilter bean")
