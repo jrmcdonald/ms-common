@@ -41,9 +41,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/dependency-check-data
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/dependency-check-data
         key: ${{ runner.os }}-gradle-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-gradle-
