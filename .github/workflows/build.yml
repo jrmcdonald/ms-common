@@ -11,23 +11,36 @@ on:
       - '*'
       - '*/*'
 
+env:
+  slack-channel: 'status-ci-cd'
+
 jobs:
   build:
-  
+
     if: contains(toJson(github.event.commits), '[skip ci]') == false
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-        fetch-depth: 50
-    - run: |
-        git fetch --no-tags --prune --depth=1 origin main
+      - name: Notify Slack Started
+        uses: voxmedia/github-action-slack-notify-build@v1
+        id: slack
+        with:
+          channel: ${{ env.slack-channel }}
+          status: BUILD STARTED
+          color: warning
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    - uses: actions/cache@v2
-      with:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 50
+      - run: |
+          git fetch --no-tags --prune --depth=1 origin main
+
+      - uses: actions/cache@v2
+        with:
         path: |
           ~/.gradle/caches
           ~/.gradle/dependency-check-data
@@ -86,9 +99,31 @@ jobs:
           @semantic-release/git
       env:
         GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
-        
-    - uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: reports
-        path: build/reports
+
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: build/reports
+
+      - name: Notify Slack Success
+        if: success()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          message_id: ${{ steps.slack.outputs.message_id }}
+          channel: ${{ env.slack-channel }}
+          status: BUILD SUCCESS
+          color: good
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Notify Slack Failed
+        if: failure()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          message_id: ${{ steps.slack.outputs.message_id }}
+          channel: ${{ env.slack-channel }}
+          status: BUILD FAILED
+          color: danger
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
