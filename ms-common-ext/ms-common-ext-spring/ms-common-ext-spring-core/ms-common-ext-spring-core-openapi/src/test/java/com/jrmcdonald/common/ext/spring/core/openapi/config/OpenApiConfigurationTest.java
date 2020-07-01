@@ -27,7 +27,9 @@ class OpenApiConfigurationTest {
             .withUserConfiguration(OpenApiConfiguration.class)
             .withPropertyValues("openapi.title=title_value",
                                 "openapi.description=description_value",
-                                "openapi.version=version_value");
+                                "openapi.version=version_value",
+                                "openapi.servers[0].url=servers_0_url",
+                                "openapi.servers[0].description=servers_0_description");
 
     @Test
     @DisplayName("Should create bearer SecurityScheme bean when bearer is specified")
@@ -93,6 +95,8 @@ class OpenApiConfigurationTest {
                   assertThat(bean.getInfo().getTitle()).isEqualTo("title_value");
                   assertThat(bean.getInfo().getDescription()).isEqualTo("description_value");
                   assertThat(bean.getInfo().getVersion()).isEqualTo("version_value");
+                  assertThat(bean.getServers().get(0).getUrl()).isEqualTo("servers_0_url");
+                  assertThat(bean.getServers().get(0).getDescription()).isEqualTo("servers_0_description");
               });
     }
 

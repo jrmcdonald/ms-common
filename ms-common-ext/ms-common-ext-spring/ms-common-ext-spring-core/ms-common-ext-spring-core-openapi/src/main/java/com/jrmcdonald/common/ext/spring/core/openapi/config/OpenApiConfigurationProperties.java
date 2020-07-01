@@ -9,9 +9,11 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstants.SCHEME_BEARER;
 import static java.util.Collections.emptyList;
@@ -26,12 +28,14 @@ public class OpenApiConfigurationProperties {
     private final @NotEmpty String description;
     private final @NotEmpty String version;
     private final Security security;
+    private final @Valid List<Server> servers;
 
-    public OpenApiConfigurationProperties(String title, String description, String version, @DefaultValue Security security) {
+    public OpenApiConfigurationProperties(String title, String description, String version, @DefaultValue Security security, List<Server> servers) {
         this.title = title;
         this.description = description;
         this.version = version;
         this.security = security;
+        this.servers = ((servers == null) || servers.isEmpty()) ? emptyList() : servers;
     }
 
     @Getter
@@ -56,5 +60,13 @@ public class OpenApiConfigurationProperties {
             this.tokenUrl = tokenUrl;
             this.scopes = (scopes == null) ? emptyList() : scopes;
         }
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static class Server {
+
+        private final @NotEmpty String url;
+        private final @NotEmpty String description;
     }
 }

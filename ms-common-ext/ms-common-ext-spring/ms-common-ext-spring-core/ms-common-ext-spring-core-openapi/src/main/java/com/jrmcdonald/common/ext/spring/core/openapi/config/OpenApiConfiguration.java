@@ -8,6 +8,7 @@ import io.swagger.v3.oas.models.security.OAuthFlows;
 import io.swagger.v3.oas.models.security.Scopes;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,6 +19,7 @@ import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstan
 import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstants.SCHEME_BEARER;
 import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstants.SCHEME_CLIENT_CREDENTIALS;
 import static java.util.Collections.singletonList;
+import static java.util.stream.Collectors.toList;
 
 @Configuration
 @EnableConfigurationProperties(OpenApiConfigurationProperties.class)
@@ -60,6 +62,10 @@ public class OpenApiConfiguration {
     public OpenAPI openApi(OpenApiConfigurationProperties properties, SecurityScheme securityScheme) {
         return new OpenAPI().components(new Components().addSecuritySchemes(properties.getSecurity().getScheme(), securityScheme))
                             .security(singletonList(new SecurityRequirement().addList(properties.getSecurity().getScheme())))
+                            .servers(properties.getServers()
+                                               .stream()
+                                               .map(server -> new Server().url(server.getUrl()).description(server.getDescription()))
+                                               .collect(toList()))
                             .info(new Info()
                                           .title(properties.getTitle())
                                           .description(properties.getDescription())
