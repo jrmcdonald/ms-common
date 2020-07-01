@@ -42,7 +42,6 @@ class OpenApiConfigurationPropertiesTest {
         BindResult<OpenApiConfigurationProperties> bindResult = binder.bind("", Bindable.of(OpenApiConfigurationProperties.class));
 
         assertThat(bindResult.get().getTitle()).isEqualTo("title_value");
-
     }
 
     @Test
@@ -206,5 +205,57 @@ class OpenApiConfigurationPropertiesTest {
         OpenApiConfigurationProperties bound = binder.bindOrCreate("security.scopes", Bindable.of(OpenApiConfigurationProperties.class));
 
         assertThat(bound.getSecurity().getScopes()).isEqualTo(emptyList());
+    }
+
+    @Test
+    @DisplayName("Should bind servers.url when set")
+    void shouldBindServersUrlWhenSet() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("servers[0].url", "server_0_url");
+
+        Binder binder = new Binder(new MapConfigurationPropertySource(properties));
+        BindResult<OpenApiConfigurationProperties> bindResult = binder.bind("", Bindable.of(OpenApiConfigurationProperties.class));
+
+        assertThat(bindResult.get().getServers().get(0).getUrl()).isEqualTo("server_0_url");
+    }
+
+    @Test
+    @DisplayName("Should generate violation constraint when servers.url not set")
+    void shouldGenerateConstraintViolationWhenServersUrlNotSet() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("servers[0].description", "server_0_description");
+
+        Binder binder = new Binder(new MapConfigurationPropertySource(properties));
+        OpenApiConfigurationProperties bound = binder.bind("", Bindable.of(OpenApiConfigurationProperties.class)).get();
+
+        Set<ConstraintViolation<OpenApiConfigurationProperties>> violations = validator.validate(bound);
+        assertThat(violations).extracting(ConstraintViolation::getPropertyPath).extracting(Path::toString).contains("servers[0].url");
+        assertThat(violations).extracting(ConstraintViolation::getMessage).contains("must not be empty");
+    }
+
+    @Test
+    @DisplayName("Should bind servers.description when set")
+    void shouldBindServersDescriptionWhenSet() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("servers[0].description", "server_0_description");
+
+        Binder binder = new Binder(new MapConfigurationPropertySource(properties));
+        BindResult<OpenApiConfigurationProperties> bindResult = binder.bind("", Bindable.of(OpenApiConfigurationProperties.class));
+
+        assertThat(bindResult.get().getServers().get(0).getDescription()).isEqualTo("server_0_description");
+    }
+
+    @Test
+    @DisplayName("Should generate violation constraint when servers.description not set")
+    void shouldGenerateViolationConstraintWhenServersDescriptionNotSet() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("servers[0].url", "server_0_url");
+
+        Binder binder = new Binder(new MapConfigurationPropertySource(properties));
+        OpenApiConfigurationProperties bound = binder.bind("", Bindable.of(OpenApiConfigurationProperties.class)).get();
+
+        Set<ConstraintViolation<OpenApiConfigurationProperties>> violations = validator.validate(bound);
+        assertThat(violations).extracting(ConstraintViolation::getPropertyPath).extracting(Path::toString).contains("servers[0].description");
+        assertThat(violations).extracting(ConstraintViolation::getMessage).contains("must not be empty");
     }
 }
