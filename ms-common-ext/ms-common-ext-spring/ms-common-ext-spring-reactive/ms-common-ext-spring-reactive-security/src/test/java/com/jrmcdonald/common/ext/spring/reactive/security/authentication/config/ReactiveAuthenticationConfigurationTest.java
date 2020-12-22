@@ -1,6 +1,5 @@
-package com.jrmcdonald.common.ext.spring.reactive.security.authentication.config;
-
 import com.jrmcdonald.common.ext.spring.reactive.security.authentication.ReactiveAuthenticationFacade;
+import com.jrmcdonald.common.ext.spring.reactive.security.authentication.config.ReactiveAuthenticationConfiguration;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
