@@ -1,9 +1,5 @@
 plugins {
-    id 'com.github.ben-manes.versions' version "${versionsPluginVersion}"
-    id 'com.github.spotbugs' version "${spotbugsPluginVersion}"
-    id 'com.gtramontina.ghooks.gradle' version "${ghooksPluginVersion}"
-    id 'org.owasp.dependencycheck' version "${dependencyCheckPluginVersion}"
-    id 'org.sonarqube' version "${sonarqubePluginVersion}"
+    id 'com.jrmcdonald.ms-gradle-baseline' version "${gradleBaselinePluginVerson}"
     id 'jacoco'
     id 'java'
 }
@@ -24,26 +20,20 @@ allprojects {
         }
     }
 
+
     if (it.name != 'ms-common-bom') {
-        apply plugin: 'com.github.ben-manes.versions'
-        apply plugin: 'com.github.spotbugs'
-        apply plugin: 'org.owasp.dependencycheck'
         apply plugin: 'java'
         apply plugin: 'java-library'
         apply plugin: 'java-test-fixtures'
 
         configurations {
-            commonBom
-            compileOnly.extendsFrom(commonBom)
-            annotationProcessor.extendsFrom(commonBom)
-            testCompileOnly.extendsFrom(commonBom)
-            testAnnotationProcessor.extendsFrom(commonBom)
-            implementation.extendsFrom(commonBom)
-            testFixturesImplementation.extendsFrom(commonBom)
+            testFixturesCompileOnly.extendsFrom(commonPlatform)
+            testFixturesAnnotationProcessor.extendsFrom(commonPlatform)
+            testFixturesImplementation.extendsFrom(commonPlatform)
         }
 
         dependencies {
-            commonBom enforcedPlatform(project(':ms-common-bom'))
+            commonPlatform enforcedPlatform(project(':ms-common-bom'))
 
             compileOnly 'org.projectlombok:lombok'
             annotationProcessor 'org.projectlombok:lombok'
@@ -59,22 +49,8 @@ allprojects {
             withSourcesJar()
         }
 
-        compileJava {
-            options.compilerArgs << "-Werror"
-            options.compilerArgs << "-Xlint:all"
-            options.compilerArgs << "-Xlint:-try"
-            options.compilerArgs << "-Xlint:-processing"
-        }
-
         jar {
             enabled = true
         }
-
-        test {
-            useJUnitPlatform()
-        }
     }
 }
-
-apply from: "${rootDir}/gradle/dependencies.gradle"
-apply from: "${rootDir}/gradle/quality.gradle"

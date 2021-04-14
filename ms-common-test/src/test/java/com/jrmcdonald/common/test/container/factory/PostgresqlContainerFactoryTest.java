@@ -11,6 +11,7 @@ import static com.jrmcdonald.common.test.container.factory.PostgresqlContainerFa
 import static com.jrmcdonald.common.test.container.factory.PostgresqlContainerFactory.getInstance;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("rawtypes")
 class PostgresqlContainerFactoryTest {
 
     @Test
