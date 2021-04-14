@@ -56,8 +56,8 @@ public class ReactiveRequestLoggingFilter implements WebFilter {
                         reactorContext.forEach(MDC::put);
                         addDurationAndStatusToMDC(exchange);
                         log.info("Exiting service");
-                    })
-                    .subscriberContext(ctx -> ctx.putAll(Context.of(reactorContext)));
+                    }).contextWrite(ctx -> ctx.putAll(Context.of(reactorContext)
+                                                             .readOnly()));
     }
 
     private Map<String, String> buildReactorContext(ServerHttpRequest request) {
