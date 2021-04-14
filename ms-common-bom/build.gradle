@@ -19,6 +19,7 @@ dependencies {
             }
         }
 
+        api(externalLibs.biweekly)
         api(externalLibs.jackson.datatype.jsr310)
         api(externalLibs.logstash.logback.encoder)
         api(externalLibs.micrometer.registry.prometheus)
