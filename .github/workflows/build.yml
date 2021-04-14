@@ -73,9 +73,8 @@ jobs:
       - name: Yarn
         run: yarn --immutable
 
-      #      TODO: re-enable when supports yarn 2.x
-      #      - name: Yarn Audit
-      #        uses: jrmcdonald/yarn-audit-action@v1
+      - name: Yarn Audit
+        run: npx audit-ci --moderate
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
