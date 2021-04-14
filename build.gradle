@@ -1,5 +1,5 @@
 plugins {
-    id 'com.jrmcdonald.ms-gradle-baseline' version "${gradleBaselinePluginVerson}"
+    id 'com.jrmcdonald.ms-gradle-baseline' version "latest.release"
     id 'jacoco'
     id 'java'
 }
