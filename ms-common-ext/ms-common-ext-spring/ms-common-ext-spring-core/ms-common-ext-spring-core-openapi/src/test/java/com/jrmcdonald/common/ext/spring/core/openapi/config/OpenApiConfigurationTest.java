@@ -17,7 +17,7 @@ import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstan
 import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiConstants.SCHEME_BEARER;
 import static com.jrmcdonald.common.ext.spring.core.openapi.model.OpenApiScope.CUSTOMER_READ;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 
 class OpenApiConfigurationTest {
@@ -37,7 +37,7 @@ class OpenApiConfigurationTest {
         runner.withPropertyValues("openapi.security.scheme=bearer")
               .run(ctx -> {
                   assertThat(ctx.getBean("bearerSecurityScheme")).isInstanceOf(SecurityScheme.class);
-                  assertThrows(NoSuchBeanDefinitionException.class, () -> ctx.getBean("clientCredentialsSecurityScheme"));
+                  assertThatThrownBy(() -> ctx.getBean("clientCredentialsSecurityScheme")).isInstanceOf(NoSuchBeanDefinitionException.class);
 
                   SecurityScheme bean = ctx.getBean("bearerSecurityScheme", SecurityScheme.class);
                   assertThat(bean.getType()).isEqualTo(SecurityScheme.Type.HTTP);
@@ -53,7 +53,7 @@ class OpenApiConfigurationTest {
     void shouldCreateBearerSecuritySchemeBeanWhenNoSchemeIsSpecified() {
         runner.run(ctx -> {
             assertThat(ctx.getBean("bearerSecurityScheme")).isInstanceOf(SecurityScheme.class);
-            assertThrows(NoSuchBeanDefinitionException.class, () -> ctx.getBean("clientCredentialsSecurityScheme"));
+            assertThatThrownBy(() -> ctx.getBean("clientCredentialsSecurityScheme")).isInstanceOf(NoSuchBeanDefinitionException.class);
         });
     }
 
@@ -67,7 +67,7 @@ class OpenApiConfigurationTest {
                                   "openapi.security.scopes=CUSTOMER_READ")
               .run(ctx -> {
                   assertThat(ctx.getBean("clientCredentialsSecurityScheme")).isInstanceOf(SecurityScheme.class);
-                  assertThrows(NoSuchBeanDefinitionException.class, () -> ctx.getBean("bearerSecurityScheme"));
+                  assertThatThrownBy(() -> ctx.getBean("bearerSecurityScheme")).isInstanceOf(NoSuchBeanDefinitionException.class);
 
                   SecurityScheme bean = ctx.getBean("clientCredentialsSecurityScheme", SecurityScheme.class);
                   assertThat(bean.getType()).isEqualTo(SecurityScheme.Type.OAUTH2);
