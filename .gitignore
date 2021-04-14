@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-build/
+**/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
@@ -33,3 +33,10 @@ out/
 
 ### Node ###
 node_modules/
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+yarn-error.log
