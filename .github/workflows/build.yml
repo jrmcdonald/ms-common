@@ -43,7 +43,8 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - uses: actions/cache@v2
+      - name: Yarn Cache
+        uses: actions/cache@v2
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -51,12 +52,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - uses: actions/cache@v2
+      - name: Gradle Cache
+        uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/dependency-check-data
-          key: ${{ runner.os }}-gradle-${{ github.sha }}
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
