@@ -1,3 +1,14 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    plugins {
+        id 'com.jrmcdonald.ms-gradle-baseline' version 'latest.release'
+    }
+}
+
 rootProject.name = 'ms-common'
 
 enableFeaturePreview('VERSION_CATALOGS')
