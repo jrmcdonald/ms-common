@@ -39,12 +39,12 @@ dependencyResolutionManagement {
     versionCatalogs {
         externalLibs {
             version('biweekly', '0.6.6')
-            version('micrometer.prometheus', '1.6.5')
-            version('jackson.datatype', '2.12.3')
+            version('micrometer.prometheus', '1.7.2')
+            version('jackson.datatype', '2.12.4')
             version('logstash.encoder', '6.6')
-            version('spotbugs.annotations', '4.2.2')
-            version('springdoc', '1.5.7')
-            version('swagger', '2.1.7')
+            version('spotbugs.annotations', '4.3.0')
+            version('springdoc', '1.5.10')
+            version('swagger', '2.1.10')
 
             alias('biweekly').to('net.sf.biweekly', 'biweekly').versionRef('biweekly')
             alias('jackson.datatype.jsr310').to('com.fasterxml.jackson.datatype', 'jackson-datatype-jsr310').versionRef('jackson.datatype')
@@ -60,7 +60,7 @@ dependencyResolutionManagement {
         testLibs {
             version('beantester', '1.0.0')
             version('okhttp', '4.9.1')
-            version('testcontainers', '1.15.2')
+            version('testcontainers', '1.16.0')
 
             alias('beantester').to('org.force66', 'BeanTester').versionRef('beantester')
             alias('squareup.mockwebserver').to('com.squareup.okhttp3', 'mockwebserver').versionRef('okhttp')
@@ -71,8 +71,8 @@ dependencyResolutionManagement {
         }
 
         platformLibs {
-            version('spring.boot', '2.4.4')
-            version('spring.cloud', '2020.0.2')
+            version('spring.boot', '2.5.3')
+            version('spring.cloud', '2020.0.3')
 
             alias('spring.boot.dependencies').to('org.springframework.boot', 'spring-boot-dependencies').versionRef('spring.boot')
             alias('spring.cloud.dependencies').to('org.springframework.cloud', 'spring-cloud-dependencies').versionRef('spring.cloud')
