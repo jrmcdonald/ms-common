@@ -51,6 +51,7 @@ dependencyResolutionManagement {
             alias('logstash.logback.encoder').to('net.logstash.logback', 'logstash-logback-encoder').versionRef('logstash.encoder')
             alias('micrometer.registry.prometheus').to('io.micrometer', 'micrometer-registry-prometheus').versionRef('micrometer.prometheus')
             alias('spotbugs.annotations').to('com.github.spotbugs', 'spotbugs-annotations').versionRef('spotbugs.annotations')
+            alias('springdoc.openapi.kotlin').to('org.springdoc', 'springdoc-openapi-kotlin').versionRef('springdoc')
             alias('springdoc.openapi.ui').to('org.springdoc', 'springdoc-openapi-ui').versionRef('springdoc')
             alias('springdoc.openapi.security').to('org.springdoc', 'springdoc-openapi-security').versionRef('springdoc')
             alias('springdoc.openapi.webflux.ui').to('org.springdoc', 'springdoc-openapi-webflux-ui').versionRef('springdoc')
@@ -59,10 +60,14 @@ dependencyResolutionManagement {
 
         testLibs {
             version('beantester', '1.0.0')
+            version('mockk', '1.12.0')
             version('okhttp', '4.9.1')
+            version('springMockk', '3.0.1')
             version('testcontainers', '1.16.0')
 
             alias('beantester').to('org.force66', 'BeanTester').versionRef('beantester')
+            alias('mockk.mockk').to('io.mockk', 'mockk').versionRef('mockk')
+            alias('mockk.springmockk').to('com.ninjasquad', 'springmockk').versionRef('springMockk')
             alias('squareup.mockwebserver').to('com.squareup.okhttp3', 'mockwebserver').versionRef('okhttp')
             alias('squareup.okhttp').to('com.squareup.okhttp3', 'okhttp').versionRef('okhttp')
             alias('testcontainers.core').to('org.testcontainers', 'testcontainers').versionRef('testcontainers')
